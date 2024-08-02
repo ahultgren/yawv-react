@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.104",
@@ -55,6 +54,7 @@
     "@storybook/react": "^8.2.7",
     "@storybook/react-webpack5": "^8.2.7",
     "@storybook/test": "^8.2.7",
+    "@testing-library/react": "^16.0.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-storybook": "^0.8.0",
     "prop-types": "^15.8.1",

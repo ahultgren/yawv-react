@@ -1,3 +1,52 @@
 .weekview {
-  color: red;
+  --header-row-height: 30px;
+  --cell-row-height: 30px;
+  --line-color: #98c996;
+  --day-columns-template: repeat(7, minmax(0, 1fr));
+
+  background: #e8fff1;
+  display: grid;
+  grid-template-columns: 45px var(--day-columns-template);
+  grid-template-rows: var(--header-row-height) 1fr;
+  position: relative;
+  padding: 1%;
+
+  color: #555;
+  font-size: 12px;
+}
+
+.header {
+  display: grid;
+  grid-template-columns: var(--day-columns-template);
+  grid-column: 2 / 9;
+  grid-auto-rows: var(--cell-row-height);
+}
+
+.dayTitle {
+  border-left: 1px solid var(--line-color);
+  border-bottom: 1px solid var(--line-color);
+  padding: 0 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: var(--header-row-height);
+}
+
+.hours {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-rows: var(--cell-row-height);
+}
+.hourTitle {
+  padding: 0 10px 0 5px;
+  text-align: right;
+  line-height: 0;
+  position: relative;
+
+  &:after {
+    content: "–";
+    position: absolute;
+    right: -1px;
+    top: 0px;
+    display: block;
+  }
 }
