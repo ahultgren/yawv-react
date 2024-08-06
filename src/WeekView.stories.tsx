@@ -26,6 +26,20 @@ export const Monday: Story = {
   args: {
     from: 9,
     to: 17,
+    events: [
+      {
+        id: "mockid1",
+        title: "Event",
+        startDate: new Date("2024-08-06T10:00"),
+        endDate: new Date("2024-08-06T11:00"),
+      },
+      {
+        id: "mockid2",
+        title: "Event",
+        startDate: new Date("2024-08-07T13:00"),
+        endDate: new Date("2024-08-07T16:00"),
+      },
+    ],
   },
 };
 

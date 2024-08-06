@@ -1,6 +1,11 @@
 import styles from "./WeekView.module.scss";
+import { IntRange } from "./utils/IntRange";
 
-export function Header({ startDay = 1 }: { startDay?: number } = {}) {
+export type Props = {
+  startDay: IntRange<0, 7>;
+};
+
+export function Header({ startDay }: Props) {
   const days = getDays({ startDay });
 
   return (

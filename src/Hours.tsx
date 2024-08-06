@@ -1,4 +1,6 @@
+import { IntRange } from "./utils/IntRange";
 import styles from "./WeekView.module.scss";
+import { range } from "./utils/range";
 
 // TODO autodoc to generate docs in storybook?
 export type Props = {
@@ -27,19 +29,3 @@ export function Hours({ from, to }: Props) {
     </div>
   );
 }
-
-function range(from: number, to: number): ReadonlyArray<number> {
-  return [...Array(to - from).keys()].map((i) => i + from);
-}
-
-type Enumerate<
-  N extends number,
-  Acc extends number[] = [],
-> = Acc["length"] extends N
-  ? Acc[number]
-  : Enumerate<N, [...Acc, Acc["length"]]>;
-
-type IntRange<F extends number, T extends number> = Exclude<
-  Enumerate<T>,
-  Enumerate<F>
->;

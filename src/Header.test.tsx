@@ -16,7 +16,7 @@ describe("getDays()", () => {
 
 describe("Header", () => {
   test("renders titles for a full week", () => {
-    render(<Header />);
+    render(<Header startDay={1} />);
 
     [
       "monday",
@@ -30,16 +30,6 @@ describe("Header", () => {
       const title = screen.getByText(new RegExp(day, "i"));
       expect(title).toBeInTheDocument();
     });
-  });
-
-  test("starts on Monday by default", () => {
-    render(<Header />);
-
-    const monday = screen.getByText("Monday");
-    const sunday = screen.getByText("Sunday");
-    expect(monday.compareDocumentPosition(sunday)).toEqual(
-      monday.DOCUMENT_POSITION_FOLLOWING
-    );
   });
 
   test("starts on Sunday", () => {
