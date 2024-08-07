@@ -42,6 +42,12 @@ export const AllFeatures: Story = {
         startDate: new Date("2024-08-07T21:00"),
         endDate: new Date("2024-08-08T10:00"),
       },
+      {
+        id: "mockid3",
+        title: "Event",
+        startDate: new Date("2024-08-06T07:00"),
+        endDate: new Date("2024-08-06T11:00"),
+      },
     ],
   },
 };
