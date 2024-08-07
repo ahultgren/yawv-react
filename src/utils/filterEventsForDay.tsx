@@ -1,15 +1,15 @@
-import {
-  interval,
-  areIntervalsOverlapping,
-  startOfDay,
-  endOfDay,
-} from "date-fns";
+import { interval, areIntervalsOverlapping, setHours } from "date-fns";
 import { Event } from "../Event";
 
-export function filterEventsForDay(events: Event[], day: Date) {
+export function filterEventsForDay(
+  events: Event[],
+  day: Date,
+  from: number,
+  to: number
+) {
   return events.filter((event) => {
     return areIntervalsOverlapping(
-      interval(startOfDay(day), endOfDay(day)),
+      interval(setHours(day, from), setHours(day, to)),
       interval(event.startDate, event.endDate)
     );
   });

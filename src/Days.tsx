@@ -24,7 +24,7 @@ export function Days({ days, from, to, events }: Props) {
   return (
     <div className={styles.days}>
       {days.map((day) => {
-        const eventsOfTheDay = filterEventsForDay(events, day);
+        const eventsOfTheDay = filterEventsForDay(events, day, from, to);
         return (
           <Day
             day={day}

@@ -90,4 +90,25 @@ describe("Days", () => {
     expect(eventElements[1]).toHaveClass(styles.eventEndIsClipped);
     expect(eventElements[1]).not.toHaveClass(styles.eventStartIsClipped);
   });
+
+  it("discards events outside of time range", () => {
+    const events = [
+      {
+        id: "mockid1",
+        title: "Event",
+        startDate: new Date("2024-08-05T05:00"),
+        endDate: new Date("2024-08-05T06:00"),
+      },
+      {
+        id: "mockid2",
+        title: "Event",
+        startDate: new Date("2024-08-05T20:00"),
+        endDate: new Date("2024-08-05T21:00"),
+      },
+    ];
+
+    render(<Days from={9} to={17} days={testWeek} events={events} />);
+
+    expect(screen.queryByText("Event")).not.toBeInTheDocument();
+  });
 });
