@@ -1,5 +1,12 @@
 import classnames from "classnames";
-import { getHours } from "date-fns";
+import {
+  clamp,
+  endOfDay,
+  getHours,
+  getMinutes,
+  interval,
+  startOfDay,
+} from "date-fns";
 import styles from "./WeekView.module.scss";
 import { Props as HoursProps } from "./Hours";
 import { filterEventsForDay } from "./utils/filterEventsForDay";
@@ -45,13 +52,15 @@ function Day({
       data-date={day.toISOString()}
     >
       {events.map((event) => {
-        const startAt = getHours(event.startDate) - from + 1;
-        const endAt = getHours(event.endDate) - from + 1;
+        const { startAt, endAt, startIsClipped, endIsClipped } =
+          formatEventProps(event, day, from);
 
         return (
           <DisplayEvent
             startAt={startAt}
             endAt={endAt}
+            startIsClipped={startIsClipped}
+            endIsClipped={endIsClipped}
             title={event.title}
             key={event.id}
           />
@@ -59,4 +68,33 @@ function Day({
       })}
     </div>
   );
+}
+
+function formatEventProps(event: Event, day: Date, from: number) {
+  const startAt = getClosestHours(clampToSameDay(event.startDate, day));
+  const endAt = getClosestHours(clampToSameDay(event.endDate, day));
+  const startIsClipped = isClipped(startAt, event.startDate);
+  const endIsClipped = isClipped(endAt, event.endDate);
+
+  return {
+    startAt: startAt - from + 1,
+    endAt: endAt - from + 1,
+    startIsClipped,
+    endIsClipped,
+  };
+}
+
+function isClipped(hours: number, date: Date) {
+  return getHours(date) !== hours;
+}
+
+function getClosestHours(date: Date) {
+  const hours = getHours(date);
+  const minutes = getMinutes(date);
+
+  return Math.round(hours + minutes / 60);
+}
+
+function clampToSameDay(date: Date, day: Date) {
+  return clamp(date, interval(startOfDay(day), endOfDay(day)));
 }

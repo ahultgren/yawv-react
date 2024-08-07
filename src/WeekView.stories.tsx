@@ -23,10 +23,12 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
-export const Monday: Story = {
+export const AllFeatures: Story = {
   args: {
-    from: 9,
-    to: 17,
+    fromDate: startOfWeek(new Date()),
+    toDate: endOfWeek(addWeeks(new Date(), 1)),
+    from: 0,
+    to: 24,
     events: [
       {
         id: "mockid1",
@@ -37,19 +39,15 @@ export const Monday: Story = {
       {
         id: "mockid2",
         title: "Event",
-        startDate: new Date("2024-08-07T13:00"),
-        endDate: new Date("2024-08-07T16:00"),
+        startDate: new Date("2024-08-07T21:00"),
+        endDate: new Date("2024-08-08T10:00"),
       },
     ],
   },
 };
 
-export const TwoWeeks: Story = {
+export const Default: Story = {
   args: {
-    fromDate: startOfWeek(new Date()),
-    toDate: endOfWeek(addWeeks(new Date(), 1)),
-    from: 0,
-    to: 24,
     events: [
       {
         id: "mockid1",

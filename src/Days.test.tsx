@@ -1,26 +1,22 @@
 import { render, screen } from "@testing-library/react";
-import { Days } from "./Days";
 import { eachDayOfInterval, interval } from "date-fns";
+import { Days } from "./Days";
+import styles from "./WeekView.module.scss";
 
 describe("Days", () => {
+  const fromDate = new Date("2024-08-05T00:00");
+  const toDate = new Date("2024-08-11T00:00");
+  const testWeek = eachDayOfInterval(
+    interval(fromDate, toDate, { assertPositive: true })
+  );
+
   test("renders a column for each day", () => {
-    const fromDate = new Date("2024-08-05T00:00");
-    const toDate = new Date("2024-08-11T00:00");
-    const days = eachDayOfInterval(
-      interval(fromDate, toDate, { assertPositive: true })
-    );
-    const { container } = render(<Days from={0} days={days} events={[]} />);
+    const { container } = render(<Days from={0} days={testWeek} events={[]} />);
 
     expect(container.querySelectorAll(".column").length).toEqual(7);
   });
 
   test("renders events in the appropriate column", () => {
-    const fromDate = new Date("2024-08-05T00:00");
-    const toDate = new Date("2024-08-11T00:00");
-    const days = eachDayOfInterval(
-      interval(fromDate, toDate, { assertPositive: true })
-    );
-
     const events = [
       {
         id: "mockid1",
@@ -35,7 +31,9 @@ describe("Days", () => {
         endDate: new Date("2024-08-06T11:00"),
       },
     ];
-    const { container } = render(<Days from={0} days={days} events={events} />);
+    const { container } = render(
+      <Days from={0} days={testWeek} events={events} />
+    );
 
     expect(container.querySelectorAll(".column")[0]?.children.length).toBe(1);
     expect(container.querySelectorAll(".column")[1]?.children.length).toBe(1);
@@ -43,4 +41,26 @@ describe("Days", () => {
   });
 
   // TODO Events spanning multiple days (and their formatting (test a util))
+  it("splits multi-day events", () => {
+    const events = [
+      {
+        id: "mockid1",
+        title: "Event",
+        startDate: new Date("2024-08-05T18:00"),
+        endDate: new Date("2024-08-06T11:00"),
+      },
+    ];
+    render(<Days from={0} days={testWeek} events={events} />);
+
+    const eventElements = screen.getAllByText("Event");
+
+    expect(eventElements.length).toBe(2);
+    expect(eventElements[0]).toHaveStyle("grid-row-start: 19;");
+    expect(eventElements[0]).toHaveStyle("grid-row-end: 25;");
+    expect(eventElements[0]).toHaveClass(styles.eventEndIsClipped);
+
+    expect(eventElements[1]).toHaveStyle("grid-row-start: 1;");
+    expect(eventElements[1]).toHaveStyle("grid-row-end: 12;");
+    expect(eventElements[1]).toHaveClass(styles.eventStartIsClipped);
+  });
 });
