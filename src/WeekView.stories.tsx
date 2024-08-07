@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
 import { WeekView } from "./WeekView";
+import { addHours, addWeeks, endOfWeek, startOfWeek } from "date-fns";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
@@ -43,8 +44,19 @@ export const Monday: Story = {
   },
 };
 
-export const Sunday: Story = {
+export const TwoWeeks: Story = {
   args: {
-    startDay: 0,
+    fromDate: startOfWeek(new Date()),
+    toDate: endOfWeek(addWeeks(new Date(), 1)),
+    from: 0,
+    to: 24,
+    events: [
+      {
+        id: "mockid1",
+        title: "Now",
+        startDate: new Date(),
+        endDate: addHours(new Date(), 1),
+      },
+    ],
   },
 };

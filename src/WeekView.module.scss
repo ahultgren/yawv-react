@@ -2,11 +2,10 @@
   --header-row-height: 30px;
   --cell-row-height: 30px;
   --line-color: #98c996;
-  --day-columns-template: repeat(7, minmax(0, 1fr));
 
   background: #e8fff1;
   display: grid;
-  grid-template-columns: 45px var(--day-columns-template);
+  grid-template-columns: 45px 1fr;
   grid-template-rows: var(--header-row-height) 1fr;
   position: relative;
   padding: 1%;
@@ -17,12 +16,13 @@
 
 .header {
   display: grid;
-  grid-template-columns: var(--day-columns-template);
-  grid-column: 2 / 9;
+  grid-auto-columns: 1fr;
+  grid-column-start: 2;
   grid-auto-rows: var(--cell-row-height);
 }
 
 .dayTitle {
+  grid-row: 1;
   border-left: 1px solid var(--line-color);
   border-bottom: 1px solid var(--line-color);
   padding: 0 5px;

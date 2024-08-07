@@ -1,5 +1,5 @@
 import classnames from "classnames";
-import { eachDayOfInterval, getHours, interval } from "date-fns";
+import { getHours } from "date-fns";
 import styles from "./WeekView.module.scss";
 import { Props as HoursProps } from "./Hours";
 import { filterEventsForDay } from "./utils/filterEventsForDay";
@@ -8,16 +8,11 @@ import { Event } from "./Event";
 
 export type Props = {
   events: Event[];
-  fromDate: Date;
-  toDate: Date;
+  days: Date[];
   from: HoursProps["from"];
 };
 
-export function Days({ fromDate, toDate, from, events }: Props) {
-  const days = eachDayOfInterval(
-    interval(fromDate, toDate, { assertPositive: true })
-  );
-
+export function Days({ days, from, events }: Props) {
   return (
     <div className={styles.days}>
       {days.map((day) => {

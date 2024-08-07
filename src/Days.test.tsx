@@ -1,13 +1,15 @@
 import { render, screen } from "@testing-library/react";
 import { Days } from "./Days";
+import { eachDayOfInterval, interval } from "date-fns";
 
 describe("Days", () => {
   test("renders a column for each day", () => {
     const fromDate = new Date("2024-08-05T00:00");
     const toDate = new Date("2024-08-11T00:00");
-    const { container } = render(
-      <Days from={0} fromDate={fromDate} toDate={toDate} events={[]} />
+    const days = eachDayOfInterval(
+      interval(fromDate, toDate, { assertPositive: true })
     );
+    const { container } = render(<Days from={0} days={days} events={[]} />);
 
     expect(container.querySelectorAll(".column").length).toEqual(7);
   });
@@ -15,6 +17,9 @@ describe("Days", () => {
   test("renders events in the appropriate column", () => {
     const fromDate = new Date("2024-08-05T00:00");
     const toDate = new Date("2024-08-11T00:00");
+    const days = eachDayOfInterval(
+      interval(fromDate, toDate, { assertPositive: true })
+    );
 
     const events = [
       {
@@ -30,9 +35,7 @@ describe("Days", () => {
         endDate: new Date("2024-08-06T11:00"),
       },
     ];
-    const { container } = render(
-      <Days from={0} fromDate={fromDate} toDate={toDate} events={events} />
-    );
+    const { container } = render(<Days from={0} days={days} events={events} />);
 
     expect(container.querySelectorAll(".column")[0]?.children.length).toBe(1);
     expect(container.querySelectorAll(".column")[1]?.children.length).toBe(1);

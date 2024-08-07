@@ -1,22 +1,28 @@
-import React from "react";
 import { render, screen } from "@testing-library/react";
-import { Header, getDays } from "./Header";
+import { Header, getDaynames } from "./Header";
+import { eachDayOfInterval, interval } from "date-fns";
 
-describe("getDays()", () => {
+describe("getDaynames()", () => {
   test("starts on a monday", () => {
-    expect(getDays({ startDay: 1 })[0]).toEqual("Monday");
+    expect(getDaynames([new Date("2024-08-05T00:00")])[0]).toEqual("Monday");
   });
   test("starts on a sunday", () => {
-    expect(getDays({ startDay: 0 })[0]).toEqual("Sunday");
+    expect(getDaynames([new Date("2024-08-04T00:00")])[0]).toEqual("Sunday");
   });
   test("starts on a friday", () => {
-    expect(getDays({ startDay: 5 })[0]).toEqual("Friday");
+    expect(getDaynames([new Date("2024-08-09T00:00")])[0]).toEqual("Friday");
   });
 });
 
 describe("Header", () => {
   test("renders titles for a full week", () => {
-    render(<Header startDay={1} />);
+    const fromDate = new Date("2024-08-05T00:00");
+    const toDate = new Date("2024-08-11T00:00");
+    const days = eachDayOfInterval(
+      interval(fromDate, toDate, { assertPositive: true })
+    );
+
+    render(<Header days={days} />);
 
     [
       "monday",
@@ -30,15 +36,5 @@ describe("Header", () => {
       const title = screen.getByText(new RegExp(day, "i"));
       expect(title).toBeInTheDocument();
     });
-  });
-
-  test("starts on Sunday", () => {
-    render(<Header startDay={0} />);
-
-    const monday = screen.getByText("Monday");
-    const sunday = screen.getByText("Sunday");
-    expect(sunday.compareDocumentPosition(monday)).toEqual(
-      monday.DOCUMENT_POSITION_FOLLOWING
-    );
   });
 });

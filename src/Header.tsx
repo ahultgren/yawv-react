@@ -1,16 +1,16 @@
+import { getDay } from "date-fns";
 import styles from "./WeekView.module.scss";
-import { IntRange } from "./utils/IntRange";
 
 export type Props = {
-  startDay: IntRange<0, 7>;
+  days: Date[];
 };
 
-export function Header({ startDay }: Props) {
-  const days = getDays({ startDay });
+export function Header({ days }: Props) {
+  const daynames = getDaynames(days);
 
   return (
     <div className={styles.header}>
-      {days.map((day) => (
+      {daynames.map((day) => (
         <div className={styles.dayTitle} key={day}>
           {day}
         </div>
@@ -19,24 +19,17 @@ export function Header({ startDay }: Props) {
   );
 }
 
-const weekdays = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
+const getName = (i: number) =>
+  [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ][i];
 
-type DayArgs = {
-  startDay: number;
-};
-
-export function getDays({ startDay }: DayArgs) {
-  if (startDay === 0) {
-    return weekdays;
-  }
-
-  return [...weekdays.slice(startDay), ...weekdays.slice(0, startDay)];
+export function getDaynames(days: Date[]) {
+  return days.map(getDay).map(getName);
 }
