@@ -31,7 +31,7 @@ export function WeekView({
     <div className={styles.weekview}>
       <Header days={days}></Header>
       <Hours from={from} to={to}></Hours>
-      <Days days={days} from={from} events={events} />
+      <Days days={days} from={from} to={to} events={events} />
     </div>
   );
 }

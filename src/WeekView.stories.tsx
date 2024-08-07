@@ -25,15 +25,15 @@ type Story = StoryObj<typeof meta>;
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const AllFeatures: Story = {
   args: {
-    fromDate: startOfWeek(new Date()),
-    toDate: endOfWeek(addWeeks(new Date(), 1)),
-    from: 0,
+    fromDate: startOfWeek(new Date(), { weekStartsOn: 1 }),
+    toDate: endOfWeek(addWeeks(new Date(), 1), { weekStartsOn: 1 }),
+    from: 1,
     to: 24,
     events: [
       {
         id: "mockid1",
         title: "Event",
-        startDate: new Date("2024-08-06T10:00"),
+        startDate: new Date("2024-08-06T05:00"),
         endDate: new Date("2024-08-06T11:00"),
       },
       {

@@ -17,9 +17,10 @@ export type Props = {
   events: Event[];
   days: Date[];
   from: HoursProps["from"];
+  to: HoursProps["to"];
 };
 
-export function Days({ days, from, events }: Props) {
+export function Days({ days, from, to, events }: Props) {
   return (
     <div className={styles.days}>
       {days.map((day) => {
@@ -29,6 +30,7 @@ export function Days({ days, from, events }: Props) {
             day={day}
             events={eventsOfTheDay}
             from={from}
+            to={to}
             key={day.toISOString()}
           />
         );
@@ -41,10 +43,12 @@ function Day({
   day,
   events,
   from,
+  to,
 }: {
   day: Date;
   events: Event[];
   from: HoursProps["from"];
+  to: HoursProps["to"];
 }) {
   return (
     <div
@@ -53,7 +57,7 @@ function Day({
     >
       {events.map((event) => {
         const { startAt, endAt, startIsClipped, endIsClipped } =
-          formatEventProps(event, day, from);
+          formatEventProps(event, day, from, to);
 
         return (
           <DisplayEvent
@@ -70,9 +74,17 @@ function Day({
   );
 }
 
-function formatEventProps(event: Event, day: Date, from: number) {
-  const startAt = getClosestHours(clampToSameDay(event.startDate, day));
-  const endAt = getClosestHours(clampToSameDay(event.endDate, day));
+function formatEventProps(event: Event, day: Date, from: number, to: number) {
+  const startAt = clampToTimeRange(
+    getClosestHour(clampToSameDay(event.startDate, day)),
+    from,
+    to
+  );
+  const endAt = clampToTimeRange(
+    getClosestHour(clampToSameDay(event.endDate, day)),
+    from,
+    to
+  );
   const startIsClipped = isClipped(startAt, event.startDate);
   const endIsClipped = isClipped(endAt, event.endDate);
 
@@ -84,15 +96,19 @@ function formatEventProps(event: Event, day: Date, from: number) {
   };
 }
 
-function isClipped(hours: number, date: Date) {
-  return getHours(date) !== hours;
+function clampToTimeRange(hour, from, to) {
+  return Math.min(Math.max(hour, from), to);
 }
 
-function getClosestHours(date: Date) {
-  const hours = getHours(date);
+function isClipped(hour: number, date: Date) {
+  return getHours(date) !== hour;
+}
+
+function getClosestHour(date: Date) {
+  const hour = getHours(date);
   const minutes = getMinutes(date);
 
-  return Math.round(hours + minutes / 60);
+  return Math.round(hour + minutes / 60);
 }
 
 function clampToSameDay(date: Date, day: Date) {

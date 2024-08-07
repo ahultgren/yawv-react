@@ -10,8 +10,8 @@ export function Header({ days }: Props) {
 
   return (
     <div className={styles.header}>
-      {daynames.map((day) => (
-        <div className={styles.dayTitle} key={day}>
+      {daynames.map((day, i) => (
+        <div className={styles.dayTitle} key={i}>
           {day}
         </div>
       ))}
