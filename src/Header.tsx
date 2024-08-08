@@ -1,4 +1,4 @@
-import { getDay } from "date-fns";
+import { getDate, getDay } from "date-fns";
 import styles from "./WeekView.module.scss";
 
 export type Props = {
@@ -12,7 +12,8 @@ export function Header({ days }: Props) {
     <div className={styles.header}>
       {daynames.map((day, i) => (
         <div className={styles.dayTitle} key={i}>
-          {day}
+          <div className={styles.dayTitleDate}>{getDate(days[i])}</div>
+          <div className={styles.dayTitleName}>{day}</div>
         </div>
       ))}
     </div>
@@ -20,15 +21,7 @@ export function Header({ days }: Props) {
 }
 
 const getName = (i: number) =>
-  [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ][i];
+  ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][i];
 
 export function getDaynames(days: Date[]) {
   return days.map(getDay).map(getName);
