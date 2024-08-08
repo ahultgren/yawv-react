@@ -11,16 +11,16 @@ export { WeekViewContext };
 export type Props = {
   fromDate?: Date;
   toDate?: Date;
-  from?: HoursProps["from"];
-  to?: HoursProps["to"];
+  fromHour?: HoursProps["fromHour"];
+  toHour?: HoursProps["toHour"];
   events?: Event[];
 };
 
 export function WeekView({
   fromDate,
   toDate,
-  from = 0,
-  to = 24,
+  fromHour = 0,
+  toHour = 24,
   events = [],
 }: Props = {}) {
   const { styles } = useContext(WeekViewContext);
@@ -34,8 +34,8 @@ export function WeekView({
   return (
     <div className={styles.weekview}>
       <Header days={days}></Header>
-      <Hours from={from} to={to}></Hours>
-      <Days days={days} from={from} to={to} events={events} />
+      <Hours fromHour={fromHour} toHour={toHour}></Hours>
+      <Days days={days} fromHour={fromHour} toHour={toHour} events={events} />
     </div>
   );
 }

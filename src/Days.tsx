@@ -17,23 +17,28 @@ import { Event } from "./Event";
 export type Props = {
   events: Event[];
   days: Date[];
-  from: HoursProps["from"];
-  to: HoursProps["to"];
+  fromHour: HoursProps["fromHour"];
+  toHour: HoursProps["toHour"];
 };
 
-export function Days({ days, from, to, events }: Props) {
+export function Days({ days, fromHour, toHour, events }: Props) {
   const { styles } = useContext(WeekViewContext);
 
   return (
     <div className={styles.days}>
       {days.map((day) => {
-        const eventsOfTheDay = filterEventsForDay(events, day, from, to);
+        const eventsOfTheDay = filterEventsForDay(
+          events,
+          day,
+          fromHour,
+          toHour
+        );
         return (
           <Day
             day={day}
             events={eventsOfTheDay}
-            from={from}
-            to={to}
+            fromHour={fromHour}
+            toHour={toHour}
             key={day.toISOString()}
           />
         );
@@ -45,13 +50,13 @@ export function Days({ days, from, to, events }: Props) {
 function Day({
   day,
   events,
-  from,
-  to,
+  fromHour,
+  toHour,
 }: {
   day: Date;
   events: Event[];
-  from: HoursProps["from"];
-  to: HoursProps["to"];
+  fromHour: HoursProps["fromHour"];
+  toHour: HoursProps["toHour"];
 }) {
   const { styles } = useContext(WeekViewContext);
 
@@ -62,7 +67,7 @@ function Day({
     >
       {events.map((event) => {
         const { startAt, endAt, startIsClipped, endIsClipped } =
-          formatEventProps(event, day, from, to);
+          formatEventProps(event, day, fromHour, toHour);
 
         return (
           <DisplayEvent
@@ -79,23 +84,28 @@ function Day({
   );
 }
 
-function formatEventProps(event: Event, day: Date, from: number, to: number) {
+function formatEventProps(
+  event: Event,
+  day: Date,
+  fromHour: number,
+  toHour: number
+) {
   const startAt = clampToTimeRange(
     getClosestHour(clampToSameDay(event.startDate, day)),
-    from,
-    to
+    fromHour,
+    toHour
   );
   const endAt = clampToTimeRange(
     getClosestHour(clampToSameDay(event.endDate, day)),
-    from,
-    to
+    fromHour,
+    toHour
   );
   const startIsClipped = isClipped(startAt, event.startDate);
   const endIsClipped = isClipped(endAt, event.endDate);
 
   return {
-    startAt: startAt - from + 1,
-    endAt: endAt - from + 1,
+    startAt: startAt - fromHour + 1,
+    endAt: endAt - fromHour + 1,
     startIsClipped,
     endIsClipped,
   };

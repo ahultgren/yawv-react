@@ -5,22 +5,22 @@ import { range } from "./utils/range";
 
 // TODO autodoc to generate docs in storybook?
 export type Props = {
-  from: IntRange<0, 24>;
-  to: IntRange<1, 25>;
+  fromHour: IntRange<0, 24>;
+  toHour: IntRange<1, 25>;
 };
 
-export function Hours({ from, to }: Props) {
+export function Hours({ fromHour, toHour }: Props) {
   const { styles } = useContext(WeekViewContext);
 
-  if (from >= to) {
+  if (fromHour >= toHour) {
     console.log(
-      `WeekView: .from (${from}) must be less than .to (${to}). Resetting to default values (0 and 24).`
+      `WeekView: .from (${fromHour}) must be less than .to (${toHour}). Resetting to default values (0 and 24).`
     );
-    from = 0;
-    to = 24;
+    fromHour = 0;
+    toHour = 24;
   }
 
-  const hours = range(from, to + 1);
+  const hours = range(fromHour, toHour + 1);
 
   return (
     <div className={styles.column + " " + styles.hours}>

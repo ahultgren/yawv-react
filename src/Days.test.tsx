@@ -12,7 +12,7 @@ describe("Days", () => {
 
   test("renders a column for each day", () => {
     const { container } = render(
-      <Days from={0} to={24} days={testWeek} events={[]} />
+      <Days fromHour={0} toHour={24} days={testWeek} events={[]} />
     );
 
     expect(container.querySelectorAll(".column").length).toEqual(7);
@@ -34,7 +34,7 @@ describe("Days", () => {
       },
     ];
     const { container } = render(
-      <Days from={0} to={24} days={testWeek} events={events} />
+      <Days fromHour={0} toHour={24} days={testWeek} events={events} />
     );
 
     expect(container.querySelectorAll(".column")[0]?.children.length).toBe(1);
@@ -51,7 +51,7 @@ describe("Days", () => {
         endDate: new Date("2024-08-06T11:00"),
       },
     ];
-    render(<Days from={0} to={24} days={testWeek} events={events} />);
+    render(<Days fromHour={0} toHour={24} days={testWeek} events={events} />);
 
     const eventElements = screen.getAllByText("Event");
 
@@ -81,7 +81,7 @@ describe("Days", () => {
       },
     ];
 
-    render(<Days from={9} to={17} days={testWeek} events={events} />);
+    render(<Days fromHour={9} toHour={17} days={testWeek} events={events} />);
 
     const eventElements = screen.getAllByText("Event");
 
@@ -107,7 +107,7 @@ describe("Days", () => {
       },
     ];
 
-    render(<Days from={9} to={17} days={testWeek} events={events} />);
+    render(<Days fromHour={9} toHour={17} days={testWeek} events={events} />);
 
     expect(screen.queryByText("Event")).not.toBeInTheDocument();
   });

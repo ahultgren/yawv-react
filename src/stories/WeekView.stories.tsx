@@ -28,8 +28,8 @@ export const AllFeatures: Story = {
   args: {
     fromDate: startOfWeek(new Date(), { weekStartsOn: 1 }),
     toDate: startOfWeek(addWeeks(new Date(), 1), { weekStartsOn: 1 }),
-    from: 7,
-    to: 17,
+    fromHour: 7,
+    toHour: 17,
     events: [
       {
         id: "mockid1",
