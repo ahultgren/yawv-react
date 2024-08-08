@@ -3,9 +3,12 @@ import { Days } from "./Days";
 import { Event } from "./Event";
 import { Header } from "./Header";
 import { Hours, Props as HoursProps } from "./Hours";
-import styles from "./WeekView.module.scss";
+import { useContext } from "react";
+import { WeekViewContext } from "./WeekViewContext";
 
-type Props = {
+export { WeekViewContext };
+
+export type Props = {
   fromDate?: Date;
   toDate?: Date;
   from?: HoursProps["from"];
@@ -20,6 +23,7 @@ export function WeekView({
   to = 24,
   events = [],
 }: Props = {}) {
+  const { styles } = useContext(WeekViewContext);
   fromDate = fromDate || startOfWeek(new Date(), { weekStartsOn: 1 });
   toDate = toDate || endOfWeek(new Date(), { weekStartsOn: 1 });
 

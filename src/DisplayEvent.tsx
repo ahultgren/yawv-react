@@ -1,5 +1,6 @@
-import styles from "./WeekView.module.scss";
 import classNames from "classnames";
+import { useContext } from "react";
+import { WeekViewContext } from "./WeekViewContext";
 
 export type DisplayEventProps = {
   title: string;
@@ -16,6 +17,8 @@ export function DisplayEvent({
   startIsClipped,
   endIsClipped,
 }: DisplayEventProps) {
+  const { styles } = useContext(WeekViewContext);
+
   return (
     <div
       className={classNames("event", styles.event, {

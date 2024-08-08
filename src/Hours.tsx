@@ -1,5 +1,6 @@
+import { useContext } from "react";
+import { WeekViewContext } from "./WeekViewContext";
 import { IntRange } from "./utils/IntRange";
-import styles from "./WeekView.module.scss";
 import { range } from "./utils/range";
 
 // TODO autodoc to generate docs in storybook?
@@ -9,6 +10,8 @@ export type Props = {
 };
 
 export function Hours({ from, to }: Props) {
+  const { styles } = useContext(WeekViewContext);
+
   if (from >= to) {
     console.log(
       `WeekView: .from (${from}) must be less than .to (${to}). Resetting to default values (0 and 24).`

@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
-import { WeekView } from "./WeekView";
+import { WeekView, WeekViewContext } from "../WeekView";
 import { addHours, addWeeks, endOfWeek, startOfWeek } from "date-fns";
+import styles from "./custom.module.scss";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
@@ -26,9 +27,9 @@ type Story = StoryObj<typeof meta>;
 export const AllFeatures: Story = {
   args: {
     fromDate: startOfWeek(new Date(), { weekStartsOn: 1 }),
-    toDate: endOfWeek(addWeeks(new Date(), 1), { weekStartsOn: 1 }),
-    from: 1,
-    to: 24,
+    toDate: startOfWeek(addWeeks(new Date(), 1), { weekStartsOn: 1 }),
+    from: 7,
+    to: 17,
     events: [
       {
         id: "mockid1",
@@ -38,15 +39,15 @@ export const AllFeatures: Story = {
       },
       {
         id: "mockid2",
-        title: "Event",
+        title: "Multi-day event",
         startDate: new Date("2024-08-07T21:00"),
         endDate: new Date("2024-08-08T10:00"),
       },
       {
         id: "mockid3",
-        title: "Event",
-        startDate: new Date("2024-08-06T07:00"),
-        endDate: new Date("2024-08-06T11:00"),
+        title: "Overlapping",
+        startDate: new Date("2024-08-06T09:00"),
+        endDate: new Date("2024-08-06T12:00"),
       },
     ],
   },
@@ -63,4 +64,24 @@ export const Default: Story = {
       },
     ],
   },
+};
+
+export const CustomStyling: Story = {
+  args: {
+    events: [
+      {
+        id: "mockid1",
+        title: "Now",
+        startDate: new Date(),
+        endDate: addHours(new Date(), 1),
+      },
+    ],
+  },
+  decorators: [
+    (Story) => (
+      <WeekViewContext.Provider value={{ styles }}>
+        <Story />
+      </WeekViewContext.Provider>
+    ),
+  ],
 };

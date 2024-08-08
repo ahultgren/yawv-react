@@ -1,0 +1,12 @@
+@import "../WeekView.module.scss";
+
+.weekview {
+  --header-row-height: 50px;
+  --cell-row-height: 30px;
+  --line-color: #8fbce1;
+  --text-color: #f00;
+  --date-color: #555;
+  --event-color: #229dd6;
+
+  font-family: cursive;
+}

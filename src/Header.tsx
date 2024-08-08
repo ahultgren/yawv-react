@@ -1,5 +1,6 @@
+import { useContext } from "react";
+import { WeekViewContext } from "./WeekViewContext";
 import { getDate, getDay } from "date-fns";
-import styles from "./WeekView.module.scss";
 
 export type Props = {
   days: Date[];
@@ -7,6 +8,7 @@ export type Props = {
 
 export function Header({ days }: Props) {
   const daynames = getDaynames(days);
+  const { styles } = useContext(WeekViewContext);
 
   return (
     <div className={styles.header}>
