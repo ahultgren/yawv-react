@@ -16,6 +16,9 @@ export type Props = {
   events?: Event[];
 };
 
+/**
+ * Render a grid of events in columns by day.
+ */
 export function WeekView({
   fromDate,
   toDate,

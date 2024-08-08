@@ -4,26 +4,68 @@ import { WeekView, WeekViewContext } from "../WeekView";
 import { addHours, addWeeks, endOfWeek, startOfWeek } from "date-fns";
 import styles from "./custom.module.scss";
 
-// More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
   title: "WeekView",
   component: WeekView,
   parameters: {
-    // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
     layout: "fullscreen",
   },
-  // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ["autodocs"],
-  // More on argTypes: https://storybook.js.org/docs/api/argtypes
-  argTypes: {},
-  // Use `fn` to spy on the onClick arg, which will appear in the actions panel once invoked: https://storybook.js.org/docs/essentials/actions#action-args
-  args: { onClick: fn() },
+
+  argTypes: {
+    fromDate: {
+      description: "The first date the calendar will show",
+      control: { type: "date" },
+      table: {
+        defaultValue: {
+          summary: "(Start of week)",
+          detail: "Start of the present ISO week (Monday)",
+        },
+      },
+    },
+    toDate: {
+      description: "The last date the calendar will show",
+      control: { type: "date" },
+      table: {
+        defaultValue: {
+          summary: "(End of week)",
+          detail: "End of the present ISO week (Sunday)",
+        },
+      },
+    },
+    fromHour: {
+      description: "The earliest hour the calendar will show",
+      control: { type: "number", min: 0, max: 23, default: 0 },
+      table: {
+        defaultValue: {
+          summary: "0",
+        },
+      },
+    },
+    toHour: {
+      description: "The latest hour the calendar will show",
+      control: { type: "number", min: 1, max: 24 },
+      table: {
+        defaultValue: {
+          summary: "24",
+        },
+      },
+    },
+    events: {
+      description: "The events to show at the appropriate day and time",
+      control: { type: "object" },
+      table: {
+        defaultValue: {
+          summary: "[]",
+        },
+      },
+    },
+  },
 } satisfies Meta<typeof WeekView>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const AllFeatures: Story = {
   args: {
     fromDate: startOfWeek(new Date(), { weekStartsOn: 1 }),
@@ -45,7 +87,7 @@ export const AllFeatures: Story = {
       },
       {
         id: "mockid3",
-        title: "Overlapping",
+        title: "Overlapping event",
         startDate: new Date("2024-08-06T09:00"),
         endDate: new Date("2024-08-06T12:00"),
       },
@@ -53,19 +95,11 @@ export const AllFeatures: Story = {
   },
 };
 
-export const Default: Story = {
-  args: {
-    events: [
-      {
-        id: "mockid1",
-        title: "Now",
-        startDate: new Date(),
-        endDate: addHours(new Date(), 1),
-      },
-    ],
-  },
-};
-
+/**
+ * # Custom Styling
+ * Use the WeekViewContext.style to substitute your own styles. Click
+ * "Show code" and have a look at src/stories/custom.module.scss.
+ */
 export const CustomStyling: Story = {
   args: {
     events: [
