@@ -8,11 +8,11 @@ import {
   startOfDay,
 } from "date-fns";
 import { useContext } from "react";
-import { WeekViewContext } from "./WeekViewContext";
-import { Props as HoursProps } from "./Hours";
-import { filterEventsForDay } from "./utils/filterEventsForDay";
-import { DisplayEvent } from "./DisplayEvent";
-import { Event } from "./Event";
+import { WeekViewContext } from "../WeekViewContext";
+import { Props as HoursProps } from "../Hours/Hours";
+import { filterEventsForDay } from "./filterEventsForDay";
+import { DisplayEvent } from "../Event/DisplayEvent";
+import { Event } from "../Event/Event";
 
 export type Props = {
   events: Event[];

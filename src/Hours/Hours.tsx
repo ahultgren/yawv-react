@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import { WeekViewContext } from "./WeekViewContext";
-import { IntRange } from "./utils/IntRange";
-import { range } from "./utils/range";
+import { WeekViewContext } from "../WeekViewContext";
+import { IntRange } from "../utils/IntRange";
+import { range } from "../utils/range";
 
 // TODO autodoc to generate docs in storybook?
 export type Props = {

@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { WeekViewContext } from "./WeekViewContext";
+import { WeekViewContext } from "../WeekViewContext";
 import { getDate, getDay } from "date-fns";
 
 export type Props = {

@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { useContext } from "react";
-import { WeekViewContext } from "./WeekViewContext";
+import { WeekViewContext } from "../WeekViewContext";
 
 export type DisplayEventProps = {
   title: string;

@@ -1,8 +1,8 @@
 import { startOfWeek, endOfWeek, eachDayOfInterval, interval } from "date-fns";
-import { Days } from "./Days";
-import { Event } from "./Event";
-import { Header } from "./Header";
-import { Hours, Props as HoursProps } from "./Hours";
+import { Days } from "./Days/Days";
+import { Event } from "./Event/Event";
+import { Header } from "./Header/Header";
+import { Hours, Props as HoursProps } from "./Hours/Hours";
 import { useContext } from "react";
 import { WeekViewContext } from "./WeekViewContext";
 

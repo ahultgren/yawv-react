@@ -1,22 +1,21 @@
 {
-  "name": "yawv-react",
+  "name": "@ahultgren/yawv-react",
+  "author": "Andreas Hultgren",
+  "homepage": "https://github.com/ahultgren/yawv-react",
+  "license": "MIT",
   "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.104",
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0",
-    "classnames": "^2.5.1",
-    "date-fns": "^3.6.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-scripts": "5.0.1",
-    "typescript": "^4.9.5",
-    "web-vitals": "^2.1.4"
+  "main": "src/WeekView.tsx",
+  "keywords": [
+    "weekview",
+    "week",
+    "react",
+    "calendar"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ahultgren/yawv-react.git"
   },
+  "source": "./src/WeekView.tsx",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -25,27 +24,25 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest",
-      "prettier",
-      "plugin:storybook/recommended"
-    ]
+  "dependencies": {
+    "@types/node": "^16.18.104",
+    "@types/react": "^18.3.3",
+    "classnames": "^2.5.1",
+    "date-fns": "^3.6.0"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "peerDependencies": {
+    "react": "18.x"
   },
   "devDependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-scripts": "5.0.1",
+    "typescript": "^4.9.5",
+    "web-vitals": "^2.1.4",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.5.2",
+    "@types/react-dom": "^18.3.0",
     "@chromatic-com/storybook": "^1.6.1",
     "@storybook/addon-essentials": "^8.2.7",
     "@storybook/addon-interactions": "^8.2.7",
@@ -62,5 +59,13 @@
     "storybook": "^8.2.7",
     "typescript-plugin-css-modules": "^5.1.0",
     "webpack": "^5.93.0"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest",
+      "prettier",
+      "plugin:storybook/recommended"
+    ]
   }
 }

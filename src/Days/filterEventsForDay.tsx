@@ -1,5 +1,5 @@
 import { interval, areIntervalsOverlapping, setHours } from "date-fns";
-import { Event } from "../Event";
+import { Event } from "../Event/Event";
 
 export function filterEventsForDay(
   events: Event[],
