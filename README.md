@@ -1,4 +1,4 @@
-# Yet another WeekView – React
+# Yet Another WeekView for React
 
 Work in progress.  
 Made for learning purposes only.  
@@ -22,7 +22,7 @@ Expect nothing.
 
 ## Installation
 
-I admit have not yet figured out how to build this for npm.
+I admit have not yet figured out how to build this for npm. Stay tuned.
 
 ## Docs and demo
 

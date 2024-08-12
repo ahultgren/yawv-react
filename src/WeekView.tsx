@@ -16,8 +16,11 @@ export type Props = {
   events?: Event[];
 };
 
+/* Comment block used by Storybook:*/
+
 /**
- * Render a grid of events in columns by day.
+ * Demonstrates all the features of WeekView. Use the controls below to play
+ * with the number of days or hours, for example.
  */
 export function WeekView({
   fromDate,
