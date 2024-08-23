@@ -22,7 +22,7 @@ Expect nothing.
 
 ## Installation
 
-I admit have not yet figured out how to build this for npm. Stay tuned.
+`npm install @ahultgren/yawv-react`
 
 ## Docs and demo
 

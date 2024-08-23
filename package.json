@@ -4,7 +4,9 @@
   "homepage": "https://github.com/ahultgren/yawv-react",
   "license": "MIT",
   "version": "0.1.0",
-  "main": "src/WeekView.tsx",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "types": "dist/index.d.ts",
   "keywords": [
     "weekview",
     "week",
@@ -16,9 +18,15 @@
     "url": "git+https://github.com/ahultgren/yawv-react.git"
   },
   "source": "./src/WeekView.tsx",
+  "files": [
+    "/dist",
+    "README.md",
+    "screenshot.png"
+  ],
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "rollup -c",
+    "prepublishOnly": "npm run build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "storybook dev -p 6006",
@@ -26,24 +34,17 @@
   },
   "dependencies": {
     "@types/node": "^16.18.104",
-    "@types/react": "^18.3.3",
+    "@types/react": "^18.3.3"
+  },
+  "peerDependencies": {
+    "react": "18.x",
     "classnames": "^2.5.1",
     "date-fns": "^3.6.0"
   },
-  "peerDependencies": {
-    "react": "18.x"
-  },
   "devDependencies": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-scripts": "5.0.1",
-    "typescript": "^4.9.5",
-    "web-vitals": "^2.1.4",
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
-    "@types/react-dom": "^18.3.0",
     "@chromatic-com/storybook": "^1.6.1",
+    "@rollup/plugin-commonjs": "^26.0.1",
+    "@rollup/plugin-node-resolve": "^15.2.3",
     "@storybook/addon-essentials": "^8.2.7",
     "@storybook/addon-interactions": "^8.2.7",
     "@storybook/addon-links": "^8.2.7",
@@ -52,12 +53,25 @@
     "@storybook/react": "^8.2.7",
     "@storybook/react-webpack5": "^8.2.7",
     "@storybook/test": "^8.2.7",
+    "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^16.0.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.5.2",
+    "@types/react-dom": "^18.3.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-storybook": "^0.8.0",
     "prop-types": "^15.8.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-scripts": "5.0.1",
+    "rollup": "^2.79.1",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-typescript2": "^0.36.0",
     "storybook": "^8.2.7",
+    "typescript": "^4.9.5",
     "typescript-plugin-css-modules": "^5.1.0",
+    "web-vitals": "^2.1.4",
     "webpack": "^5.93.0"
   },
   "eslintConfig": {

@@ -25,3 +25,4 @@ yarn-error.log*
 *storybook.log
 /boilerplate
 /storybook-static
+/dist
