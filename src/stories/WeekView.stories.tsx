@@ -1,16 +1,16 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
-import { WeekView, WeekViewContext } from "../WeekView";
+import { WeekView } from "../WeekView";
 import {
   add,
   addHours,
-  addWeeks,
   endOfWeek,
   interval,
   intervalToDuration,
   startOfWeek,
 } from "date-fns";
 import styles from "./custom.module.scss";
+import { sv } from "date-fns/locale";
 
 const meta = {
   title: "WeekView",
@@ -111,8 +111,9 @@ export const AllFeatures: Story = {
 
 /**
  * # Custom Styling
- * Use the WeekViewContext.style to substitute your own styles. Click
- * "Show code" and have a look at src/stories/custom.module.scss.
+ * Provide your own stylesheet as an argument. Click "Show code" below to see
+ * how it's implemented, and have a look at src/stories/custom.module.scss and
+ * src/stories/WeekView.stories.tsx.
  */
 export const CustomStyling: Story = {
   args: {
@@ -124,12 +125,26 @@ export const CustomStyling: Story = {
         endDate: addHours(new Date(), 1),
       },
     ],
+    styles: styles,
   },
-  decorators: [
-    (Story) => (
-      <WeekViewContext.Provider value={{ styles }}>
-        <Story />
-      </WeekViewContext.Provider>
-    ),
-  ],
+};
+
+/**
+ * # Localization
+ * Provide any locale supported by date-fns (see https://github.com/date-fns/date-fns/tree/main/src/locale).
+ */
+export const Localization: Story = {
+  args: {
+    fromHour: 10,
+    toHour: 17,
+    events: [
+      {
+        id: "mockid1",
+        title: "Now",
+        startDate: new Date(),
+        endDate: addHours(new Date(), 1),
+      },
+    ],
+    locale: sv,
+  },
 };

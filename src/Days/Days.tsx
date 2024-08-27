@@ -8,7 +8,7 @@ import {
   startOfDay,
 } from "date-fns";
 import { useContext } from "react";
-import { WeekViewContext } from "../WeekViewContext";
+import { useWeekView } from "../WeekViewContext";
 import { Props as HoursProps } from "../Hours/Hours";
 import { filterEventsForDay } from "./filterEventsForDay";
 import { DisplayEvent } from "../Event/DisplayEvent";
@@ -22,7 +22,7 @@ export type Props = {
 };
 
 export function Days({ days, fromHour, toHour, events }: Props) {
-  const { styles } = useContext(WeekViewContext);
+  const { styles } = useWeekView();
 
   return (
     <div className={styles.days}>
@@ -58,7 +58,7 @@ function Day({
   fromHour: HoursProps["fromHour"];
   toHour: HoursProps["toHour"];
 }) {
-  const { styles } = useContext(WeekViewContext);
+  const { styles } = useWeekView();
 
   return (
     <div

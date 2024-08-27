@@ -1,5 +1,4 @@
-import { useContext } from "react";
-import { WeekViewContext } from "../WeekViewContext";
+import { useWeekView } from "../WeekViewContext";
 import { IntRange } from "../utils/IntRange";
 import { range } from "../utils/range";
 
@@ -10,7 +9,7 @@ export type Props = {
 };
 
 export function Hours({ fromHour, toHour }: Props) {
-  const { styles } = useContext(WeekViewContext);
+  const { styles } = useWeekView();
 
   if (fromHour >= toHour) {
     console.log(

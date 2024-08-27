@@ -3,10 +3,11 @@ import { Days } from "./Days/Days";
 import { Event } from "./Event/Event";
 import { Header } from "./Header/Header";
 import { Hours, Props as HoursProps } from "./Hours/Hours";
-import { useContext } from "react";
-import { WeekViewContext } from "./WeekViewContext";
-
-export { WeekViewContext };
+import {
+  Props as WeekViewContextProps,
+  WeekViewProvider,
+  useWeekView,
+} from "./WeekViewContext";
 
 export type Props = {
   fromDate?: Date;
@@ -14,6 +15,8 @@ export type Props = {
   fromHour?: HoursProps["fromHour"];
   toHour?: HoursProps["toHour"];
   events?: Event[];
+  styles?: WeekViewContextProps["styles"];
+  locale?: WeekViewContextProps["locale"];
 };
 
 /* Comment block used by Storybook:*/
@@ -28,8 +31,32 @@ export function WeekView({
   fromHour = 0,
   toHour = 24,
   events = [],
+  styles,
+  locale,
 }: Props = {}) {
-  const { styles } = useContext(WeekViewContext);
+  return (
+    <WeekViewProvider styles={styles} locale={locale}>
+      <WeekViewRender
+        styles={styles}
+        fromDate={fromDate}
+        toDate={toDate}
+        fromHour={fromHour}
+        toHour={toHour}
+        events={events}
+      />
+    </WeekViewProvider>
+  );
+}
+
+function WeekViewRender({
+  fromDate,
+  toDate,
+  fromHour = 0,
+  toHour = 24,
+  events = [],
+}: Props = {}) {
+  const { styles } = useWeekView();
+
   fromDate = fromDate || startOfWeek(new Date(), { weekStartsOn: 1 });
   toDate = toDate || endOfWeek(new Date(), { weekStartsOn: 1 });
 

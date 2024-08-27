@@ -1,14 +1,13 @@
-import { useContext } from "react";
-import { WeekViewContext } from "../WeekViewContext";
-import { getDate, getDay } from "date-fns";
+import { useWeekView } from "../WeekViewContext";
+import { Locale, formatWithOptions, getDate } from "date-fns/fp";
 
 export type Props = {
   days: Date[];
 };
 
 export function Header({ days }: Props) {
-  const daynames = getDaynames(days);
-  const { styles } = useContext(WeekViewContext);
+  const { styles, locale } = useWeekView();
+  const daynames = getDaynames(days, locale);
 
   return (
     <div className={styles.header}>
@@ -22,9 +21,9 @@ export function Header({ days }: Props) {
   );
 }
 
-const getName = (i: number) =>
-  ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][i];
-
-export function getDaynames(days: Date[]) {
-  return days.map(getDay).map(getName);
+export function getDaynames(
+  days: Date[],
+  locale: Locale | undefined = undefined
+) {
+  return days.map(formatWithOptions({ locale }, "EEE"));
 }
