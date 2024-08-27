@@ -7,7 +7,7 @@
   --event-color: #4db227;
 
   display: grid;
-  grid-template-columns: 45px 1fr;
+  grid-template-columns: auto 1fr;
   grid-template-rows: auto 1fr;
   position: relative;
   padding: 1%;

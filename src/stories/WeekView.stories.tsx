@@ -132,6 +132,7 @@ export const CustomStyling: Story = {
 /**
  * # Localization
  * Provide any locale supported by date-fns (see https://github.com/date-fns/date-fns/tree/main/src/locale).
+ * Affects the formatting of hours and the name of the days.
  */
 export const Localization: Story = {
   args: {

@@ -1,3 +1,4 @@
+import { Locale, format, setHours, setMinutes } from "date-fns";
 import { useWeekView } from "../WeekViewContext";
 import { IntRange } from "../utils/IntRange";
 import { range } from "../utils/range";
@@ -9,8 +10,6 @@ export type Props = {
 };
 
 export function Hours({ fromHour, toHour }: Props) {
-  const { styles } = useWeekView();
-
   if (fromHour >= toHour) {
     console.log(
       `WeekView: .from (${fromHour}) must be less than .to (${toHour}). Resetting to default values (0 and 24).`
@@ -19,15 +18,19 @@ export function Hours({ fromHour, toHour }: Props) {
     toHour = 24;
   }
 
+  const { styles, locale } = useWeekView();
   const hours = range(fromHour, toHour + 1);
 
   return (
     <div className={styles.column + " " + styles.hours}>
       {hours.map((hour) => (
         <div className={styles.hourTitle} key={hour}>
-          {hour}:00
+          {formatHour(locale, hour)}
         </div>
       ))}
     </div>
   );
 }
+
+const formatHour = (locale: Locale, hour: number) =>
+  format(setMinutes(setHours(new Date(), hour), 0), "p", { locale });
