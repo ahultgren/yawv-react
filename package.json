@@ -3,7 +3,7 @@
   "author": "Andreas Hultgren",
   "homepage": "https://github.com/ahultgren/yawv-react",
   "license": "MIT",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
