@@ -91,12 +91,12 @@ function formatEventProps(
   toHour: number
 ) {
   const startAt = clampToTimeRange(
-    getClosestHour(clampToSameDay(event.startDate, day)),
+    getTick(clampToSameDay(event.startDate, day)),
     fromHour,
     toHour
   );
   const endAt = clampToTimeRange(
-    getClosestHour(clampToSameDay(event.endDate, day)),
+    getTick(clampToSameDay(event.endDate, day)),
     fromHour,
     toHour
   );
@@ -104,26 +104,26 @@ function formatEventProps(
   const endIsClipped = isClipped(endAt, event.endDate);
 
   return {
-    startAt: startAt - fromHour + 1,
-    endAt: endAt - fromHour + 1,
+    startAt: startAt - fromHour * 12 + 1,
+    endAt: endAt - fromHour * 12 + 1,
     startIsClipped,
     endIsClipped,
   };
 }
 
 function clampToTimeRange(hour: number, from: number, to: number) {
-  return Math.min(Math.max(hour, from), to);
+  return Math.min(Math.max(hour, from * 12), to * 12);
 }
 
 function isClipped(hour: number, date: Date) {
-  return getHours(date) !== hour;
+  return getTick(date) !== hour;
 }
 
-function getClosestHour(date: Date) {
+function getTick(date: Date) {
   const hour = getHours(date);
   const minutes = getMinutes(date);
 
-  return Math.round(hour + minutes / 60);
+  return Math.round(hour * 12 + minutes / 5);
 }
 
 function clampToSameDay(date: Date, day: Date) {

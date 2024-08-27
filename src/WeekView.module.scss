@@ -1,6 +1,6 @@
 .weekview {
   --header-row-height: 50px;
-  --cell-row-height: 30px;
+  --cell-row-height: 3px;
   --line-color: #ddd;
   --text-color: #888;
   --date-color: #555;
@@ -58,6 +58,7 @@
   text-align: right;
   line-height: 0;
   position: relative;
+  grid-row-end: span 12;
 
   &:after {
     content: "";

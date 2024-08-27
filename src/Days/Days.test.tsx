@@ -56,13 +56,65 @@ describe("Days", () => {
     const eventElements = screen.getAllByText("Event");
 
     expect(eventElements.length).toBe(2);
-    expect(eventElements[0]).toHaveStyle("grid-row-start: 19;");
-    expect(eventElements[0]).toHaveStyle("grid-row-end: 25;");
+    expect(eventElements[0]).toHaveStyle(`grid-row-start: ${18 * 12 + 1};`);
+    expect(eventElements[0]).toHaveStyle(`grid-row-end: ${24 * 12 + 1};`);
     expect(eventElements[0]).toHaveClass(styles.eventEndIsClipped);
 
-    expect(eventElements[1]).toHaveStyle("grid-row-start: 1;");
-    expect(eventElements[1]).toHaveStyle("grid-row-end: 12;");
+    expect(eventElements[1]).toHaveStyle(`grid-row-start: 1;`);
+    expect(eventElements[1]).toHaveStyle(`grid-row-end: ${11 * 12 + 1};`);
     expect(eventElements[1]).toHaveClass(styles.eventStartIsClipped);
+  });
+
+  it("renders events with 5-min increments", () => {
+    const events = [
+      {
+        id: "mockid1",
+        title: "Event",
+        startDate: new Date("2024-08-05T00:05"),
+        endDate: new Date("2024-08-05T00:25"),
+      },
+      {
+        id: "mockid2",
+        title: "Event",
+        startDate: new Date("2024-08-05T11:05"),
+        endDate: new Date("2024-08-05T12:00"),
+      },
+    ];
+
+    render(<Days fromHour={0} toHour={24} days={testWeek} events={events} />);
+    const eventElements = screen.getAllByText("Event");
+
+    expect(eventElements[0]).toHaveStyle(`grid-row-start: 2;`);
+    expect(eventElements[0]).toHaveStyle(`grid-row-end: 6;`);
+
+    expect(eventElements[1]).toHaveStyle(`grid-row-start: ${11 * 12 + 2};`);
+    expect(eventElements[1]).toHaveStyle(`grid-row-end: ${12 * 12 + 1};`);
+  });
+
+  it("rounds to nearest 5 min tick", () => {
+    const events = [
+      {
+        id: "mockid1",
+        title: "Event",
+        startDate: new Date("2024-08-05T00:06"),
+        endDate: new Date("2024-08-05T00:24"),
+      },
+      {
+        id: "mockid2",
+        title: "Event",
+        startDate: new Date("2024-08-05T11:07"),
+        endDate: new Date("2024-08-05T11:58"),
+      },
+    ];
+
+    render(<Days fromHour={0} toHour={24} days={testWeek} events={events} />);
+    const eventElements = screen.getAllByText("Event");
+
+    expect(eventElements[0]).toHaveStyle(`grid-row-start: 2;`);
+    expect(eventElements[0]).toHaveStyle(`grid-row-end: 6;`);
+
+    expect(eventElements[1]).toHaveStyle(`grid-row-start: ${11 * 12 + 2};`);
+    expect(eventElements[1]).toHaveStyle(`grid-row-end: ${12 * 12 + 1};`);
   });
 
   it("clips events starting before or ending after `from` and `to`", () => {

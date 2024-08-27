@@ -2,11 +2,23 @@
 
 .weekview {
   --header-row-height: 50px;
-  --cell-row-height: 30px;
+  --cell-row-height: 1.2px;
   --line-color: #8fbce1;
   --text-color: #f00;
   --date-color: #555;
   --event-color: #229dd6;
 
   font-family: cursive;
+}
+
+.event {
+  font-size: 7px;
+  font-weight: bold;
+  line-height: 1;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.hourTitle:not(:nth-child(4n + 1)) {
+  visibility: hidden;
 }

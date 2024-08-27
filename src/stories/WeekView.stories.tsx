@@ -105,6 +105,12 @@ export const AllFeatures: Story = {
         startDate: relativeToMockWeek(new Date("2024-08-06T09:00")),
         endDate: relativeToMockWeek(new Date("2024-08-06T12:00")),
       },
+      {
+        id: "mockid4",
+        title: "5-min resolution",
+        startDate: relativeToMockWeek(new Date("2024-08-05T12:22")),
+        endDate: relativeToMockWeek(new Date("2024-08-05T13:44")),
+      },
     ],
   },
 };
