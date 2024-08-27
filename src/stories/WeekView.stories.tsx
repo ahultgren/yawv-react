@@ -1,7 +1,15 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
 import { WeekView, WeekViewContext } from "../WeekView";
-import { addHours, addWeeks, endOfWeek, startOfWeek } from "date-fns";
+import {
+  add,
+  addHours,
+  addWeeks,
+  endOfWeek,
+  interval,
+  intervalToDuration,
+  startOfWeek,
+} from "date-fns";
 import styles from "./custom.module.scss";
 
 const meta = {
@@ -66,6 +74,12 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+function relativeToMockWeek(date: Date) {
+  const weekStart = startOfWeek(new Date("2024-08-06T00:00"));
+  const diff = intervalToDuration(interval(weekStart, date));
+  return add(startOfWeek(new Date()), diff);
+}
+
 export const AllFeatures: Story = {
   args: {
     fromDate: startOfWeek(new Date(), { weekStartsOn: 1 }),
@@ -76,20 +90,20 @@ export const AllFeatures: Story = {
       {
         id: "mockid1",
         title: "Event",
-        startDate: new Date("2024-08-06T05:00"),
-        endDate: new Date("2024-08-06T11:00"),
+        startDate: relativeToMockWeek(new Date("2024-08-06T05:00")),
+        endDate: relativeToMockWeek(new Date("2024-08-06T11:00")),
       },
       {
         id: "mockid2",
         title: "Multi-day event",
-        startDate: new Date("2024-08-07T21:00"),
-        endDate: new Date("2024-08-08T10:00"),
+        startDate: relativeToMockWeek(new Date("2024-08-07T15:00")),
+        endDate: relativeToMockWeek(new Date("2024-08-08T10:00")),
       },
       {
         id: "mockid3",
         title: "Overlapping event",
-        startDate: new Date("2024-08-06T09:00"),
-        endDate: new Date("2024-08-06T12:00"),
+        startDate: relativeToMockWeek(new Date("2024-08-06T09:00")),
+        endDate: relativeToMockWeek(new Date("2024-08-06T12:00")),
       },
     ],
   },
