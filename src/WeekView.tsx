@@ -1,4 +1,3 @@
-import { startOfWeek, endOfWeek, eachDayOfInterval, interval } from "date-fns";
 import { Days } from "./Days/Days";
 import { Event } from "./Event/Event";
 import { Header } from "./Header/Header";
@@ -35,40 +34,35 @@ export function WeekView({
   locale,
 }: Props = {}) {
   return (
-    <WeekViewProvider styles={styles} locale={locale}>
-      <WeekViewRender
-        styles={styles}
-        fromDate={fromDate}
-        toDate={toDate}
-        fromHour={fromHour}
-        toHour={toHour}
-        events={events}
-      />
+    <WeekViewProvider
+      styles={styles}
+      locale={locale}
+      fromDate={fromDate}
+      toDate={toDate}
+    >
+      <WeekViewRender fromHour={fromHour} toHour={toHour} events={events} />
     </WeekViewProvider>
   );
 }
 
+type WeekViewRenderProps = {
+  fromHour?: HoursProps["fromHour"];
+  toHour?: HoursProps["toHour"];
+  events?: Event[];
+};
+
 function WeekViewRender({
-  fromDate,
-  toDate,
   fromHour = 0,
   toHour = 24,
   events = [],
-}: Props = {}) {
+}: WeekViewRenderProps = {}) {
   const { styles } = useWeekView();
-
-  fromDate = fromDate || startOfWeek(new Date(), { weekStartsOn: 1 });
-  toDate = toDate || endOfWeek(new Date(), { weekStartsOn: 1 });
-
-  const days = eachDayOfInterval(
-    interval(fromDate, toDate, { assertPositive: true })
-  );
 
   return (
     <div className={styles.weekview}>
-      <Header days={days}></Header>
+      <Header></Header>
       <Hours fromHour={fromHour} toHour={toHour}></Hours>
-      <Days days={days} fromHour={fromHour} toHour={toHour} events={events} />
+      <Days fromHour={fromHour} toHour={toHour} events={events} />
     </div>
   );
 }

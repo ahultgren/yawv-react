@@ -1,12 +1,8 @@
 import { useWeekView } from "../WeekViewContext";
 import { Locale, formatWithOptions, getDate } from "date-fns/fp";
 
-export type Props = {
-  days: Date[];
-};
-
-export function Header({ days }: Props) {
-  const { styles, locale } = useWeekView();
+export function Header() {
+  const { styles, locale, days } = useWeekView();
   const daynames = getDaynames(days, locale);
 
   return (

@@ -23,11 +23,8 @@ describe("Header", () => {
   test("renders day names for a full week", () => {
     const fromDate = new Date("2024-08-05T00:00");
     const toDate = new Date("2024-08-11T00:00");
-    const days = eachDayOfInterval(
-      interval(fromDate, toDate, { assertPositive: true })
-    );
 
-    render(<Header days={days} />);
+    render(<HeaderWithProvider fromDate={fromDate} toDate={toDate} />);
 
     ["mon", "tue", "wed", "thu", "fri", "sat", "sun"].map((day) => {
       const title = screen.getByText(new RegExp(day, "i"));
@@ -38,11 +35,10 @@ describe("Header", () => {
   test("renders localized day names", () => {
     const fromDate = new Date("2024-08-05T00:00");
     const toDate = new Date("2024-08-11T00:00");
-    const days = eachDayOfInterval(
-      interval(fromDate, toDate, { assertPositive: true })
-    );
 
-    render(<HeaderWithLocale days={days} locale={sv} />);
+    render(
+      <HeaderWithProvider fromDate={fromDate} toDate={toDate} locale={sv} />
+    );
 
     ["mån", "tis", "ons", "tor", "fre", "lör", "sön"].map((day) => {
       const title = screen.getByText(new RegExp(day, "i"));
@@ -51,11 +47,19 @@ describe("Header", () => {
   });
 });
 
-function HeaderWithLocale({ days, locale }: { days: Date[]; locale: Locale }) {
+function HeaderWithProvider({
+  fromDate,
+  toDate,
+  locale,
+}: {
+  fromDate?: Date;
+  toDate?: Date;
+  locale?: Locale;
+}) {
   return (
     <>
-      <WeekViewProvider locale={locale}>
-        <Header days={days} />
+      <WeekViewProvider locale={locale} fromDate={fromDate} toDate={toDate}>
+        <Header />
       </WeekViewProvider>
     </>
   );

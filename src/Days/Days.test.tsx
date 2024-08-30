@@ -1,7 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import { eachDayOfInterval, interval } from "date-fns";
-import { Days } from "./Days";
+import { Days, Props as DaysProps } from "./Days";
 import styles from "./WeekView.module.scss";
+import { WeekViewProvider } from "../WeekViewContext";
 
 describe("Days", () => {
   const fromDate = new Date("2024-08-05T00:00");
@@ -12,7 +13,13 @@ describe("Days", () => {
 
   test("renders a column for each day", () => {
     const { container } = render(
-      <Days fromHour={0} toHour={24} days={testWeek} events={[]} />
+      <DaysWithProvider
+        fromHour={0}
+        toHour={24}
+        fromDate={fromDate}
+        toDate={toDate}
+        events={[]}
+      />
     );
 
     expect(container.querySelectorAll(".column").length).toEqual(7);
@@ -34,7 +41,13 @@ describe("Days", () => {
       },
     ];
     const { container } = render(
-      <Days fromHour={0} toHour={24} days={testWeek} events={events} />
+      <DaysWithProvider
+        fromHour={0}
+        toHour={24}
+        fromDate={fromDate}
+        toDate={toDate}
+        events={events}
+      />
     );
 
     expect(container.querySelectorAll(".column")[0]?.children.length).toBe(1);
@@ -51,7 +64,15 @@ describe("Days", () => {
         endDate: new Date("2024-08-06T11:00"),
       },
     ];
-    render(<Days fromHour={0} toHour={24} days={testWeek} events={events} />);
+    render(
+      <DaysWithProvider
+        fromHour={0}
+        toHour={24}
+        fromDate={fromDate}
+        toDate={toDate}
+        events={events}
+      />
+    );
 
     const eventElements = screen.getAllByText("Event");
 
@@ -81,7 +102,15 @@ describe("Days", () => {
       },
     ];
 
-    render(<Days fromHour={0} toHour={24} days={testWeek} events={events} />);
+    render(
+      <DaysWithProvider
+        fromHour={0}
+        toHour={24}
+        fromDate={fromDate}
+        toDate={toDate}
+        events={events}
+      />
+    );
     const eventElements = screen.getAllByText("Event");
 
     expect(eventElements[0]).toHaveStyle(`grid-row-start: 2;`);
@@ -107,7 +136,15 @@ describe("Days", () => {
       },
     ];
 
-    render(<Days fromHour={0} toHour={24} days={testWeek} events={events} />);
+    render(
+      <DaysWithProvider
+        fromHour={0}
+        toHour={24}
+        fromDate={fromDate}
+        toDate={toDate}
+        events={events}
+      />
+    );
     const eventElements = screen.getAllByText("Event");
 
     expect(eventElements[0]).toHaveStyle(`grid-row-start: 2;`);
@@ -133,7 +170,15 @@ describe("Days", () => {
       },
     ];
 
-    render(<Days fromHour={9} toHour={17} days={testWeek} events={events} />);
+    render(
+      <DaysWithProvider
+        fromHour={9}
+        toHour={17}
+        fromDate={fromDate}
+        toDate={toDate}
+        events={events}
+      />
+    );
 
     const eventElements = screen.getAllByText("Event");
 
@@ -159,8 +204,37 @@ describe("Days", () => {
       },
     ];
 
-    render(<Days fromHour={9} toHour={17} days={testWeek} events={events} />);
+    render(
+      <DaysWithProvider
+        fromHour={9}
+        toHour={17}
+        fromDate={fromDate}
+        toDate={toDate}
+        events={events}
+      />
+    );
 
     expect(screen.queryByText("Event")).not.toBeInTheDocument();
   });
 });
+
+type DaysWithProviderProps = DaysProps & {
+  fromDate?: Date;
+  toDate?: Date;
+};
+
+function DaysWithProvider({
+  fromDate,
+  toDate,
+  fromHour,
+  toHour,
+  events,
+}: DaysWithProviderProps) {
+  return (
+    <>
+      <WeekViewProvider fromDate={fromDate} toDate={toDate}>
+        <Days fromHour={fromHour} toHour={toHour} events={events} />
+      </WeekViewProvider>
+    </>
+  );
+}
