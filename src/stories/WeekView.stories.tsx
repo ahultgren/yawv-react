@@ -147,7 +147,7 @@ export const Localization: Story = {
     events: [
       {
         id: "mockid1",
-        title: "Now",
+        title: "Nu",
         startDate: new Date(),
         endDate: addHours(new Date(), 1),
       },
