@@ -50,7 +50,7 @@
 }
 
 .hours {
-  margin-bottom: calc(0px - var(--cell-row-height) + 5px);
+  margin-bottom: calc(0px - var(--cell-row-height) * 12 + 5px);
 }
 
 .hourTitle {
