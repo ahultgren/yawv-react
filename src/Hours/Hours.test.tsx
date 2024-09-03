@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { Hours } from "./Hours";
+import { Hours, Props } from "./Hours";
 import { Locale } from "date-fns";
 import { WeekViewProvider } from "../WeekViewContext";
 import { sv } from "date-fns/locale";
@@ -32,14 +32,14 @@ function HoursWithLocale({
   toHour,
   locale,
 }: {
-  fromHour: number;
-  toHour: number;
+  fromHour: Props["fromHour"];
+  toHour: Props["toHour"];
   locale: Locale;
 }) {
   return (
     <>
       <WeekViewProvider locale={locale}>
-        <Hours fromHour={10} toHour={18} />
+        <Hours fromHour={fromHour} toHour={toHour} />
       </WeekViewProvider>
     </>
   );
